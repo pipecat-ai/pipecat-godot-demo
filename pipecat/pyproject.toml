@@ -1,0 +1,12 @@
+[project]
+name = "pipecat-godot-demo-bot"
+version = "0.1.0"
+description = "The bot of the Pipecat Godot demo"
+requires-python = ">=3.11"
+dependencies = [
+    "python-dotenv",
+    "pipecat-ai[cartesia,deepgram,openai,runner,silero,websocket,webrtc]>=1.13.0",
+]
+
+[tool.ruff]
+line-length = 100

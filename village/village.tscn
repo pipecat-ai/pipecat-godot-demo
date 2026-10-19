@@ -1,0 +1,448 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://village/village.gd" id="1_h606f"]
+[ext_resource type="TileSet" path="res://village/tiles.tres" id="2_iqnor"]
+[ext_resource type="Script" path="res://village/thing.gd" id="3_markx"]
+[ext_resource type="Texture2D" path="res://assets/kenney/tiny-town.png" id="4_5r634"]
+[ext_resource type="Script" path="res://village/chest.gd" id="5_jwmop"]
+[ext_resource type="Texture2D" path="res://assets/kenney/tiny-dungeon.png" id="6_2ol3x"]
+[ext_resource type="AudioStream" path="res://assets/sounds/chest.wav" id="7_m6886"]
+[ext_resource type="Script" path="res://village/lamp.gd" id="8_c843x"]
+[ext_resource type="Texture2D" path="res://assets/lamp.png" id="9_vfyxc"]
+[ext_resource type="AudioStream" path="res://assets/sounds/lamp.wav" id="10_r2juj"]
+[ext_resource type="Script" path="res://village/player.gd" id="11_r21ja"]
+[ext_resource type="AudioStream" path="res://assets/sounds/swing.wav" id="12_mx37h"]
+[ext_resource type="AudioStream" path="res://assets/sounds/scared.wav" id="13_kpq2u"]
+[ext_resource type="Script" path="res://village/cat.gd" id="14_c7g21"]
+[ext_resource type="Texture2D" path="res://assets/cat.png" id="15_rfbtf"]
+[ext_resource type="AudioStream" path="res://assets/sounds/throw.wav" id="16_ppafc"]
+[ext_resource type="AudioStream" path="res://assets/sounds/key.wav" id="17_g57b6"]
+[ext_resource type="AudioStream" path="res://assets/sounds/pickup.wav" id="18_t6vi1"]
+[ext_resource type="AudioStream" path="res://assets/sounds/ghosts.wav" id="19_5leeh"]
+[ext_resource type="Texture2D" path="res://assets/pipecat-logo.png" id="20_0r6tc"]
+[ext_resource type="Texture2D" path="res://assets/heart.png" id="21_nfar0"]
+
+[sub_resource type="Gradient" id="Gradient_ww280"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hs13j"]
+gradient = SubResource("Gradient_ww280")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1c7wd"]
+size = Vector2(14, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8i38"]
+size = Vector2(14, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2lb2"]
+size = Vector2(14, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpatm"]
+size = Vector2(6, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epm5x"]
+size = Vector2(6, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohodd"]
+size = Vector2(6, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4e8gl"]
+size = Vector2(6, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kmeb6"]
+radius = 4.0
+
+[node name="Village" type="Node2D" unique_id=614056413]
+script = ExtResource("1_h606f")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=1844731233]
+position = Vector2(240, 135)
+
+[node name="Ground" type="TileMapLayer" parent="." unique_id=1263248377]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAACAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAACAAAAAAALAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAARAAAAAAAAAAAAAAASAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAWAAAAAAAAAAAAAAAXAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAZAAAAAAAAAAAAAAAaAAAAAAACAAAAAAAbAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAdAAAAAAABAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAABAAAAAAADAAEAAAACAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAACAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAANAAEAAAABAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAQAAEAAAAAAAAAAAARAAEAAAAAAAAAAAASAAEAAAABAAAAAAATAAEAAAAAAAAAAAAUAAEAAAABAAAAAAAVAAEAAAAAAAAAAAAWAAEAAAABAAAAAAAXAAEAAAAAAAAAAAAYAAEAAAABAAAAAAAZAAEAAAAAAAAAAAAaAAEAAAAAAAAAAAAbAAEAAAAAAAAAAAAcAAEAAAABAAAAAAAdAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAANAAIAAAAAAAAAAAAOAAIAAAAAAAAAAAAPAAIAAAABAAAAAAAQAAIAAAABAAAAAAARAAIAAAAAAAAAAAASAAIAAAABAAAAAAATAAIAAAAAAAAAAAAUAAIAAAAAAAAAAAAVAAIAAAAAAAAAAAAWAAIAAAAAAAAAAAAXAAIAAAAAAAAAAAAYAAIAAAAAAAAAAAAZAAIAAAAAAAAAAAAaAAIAAAAAAAAAAAAbAAIAAAAAAAAAAAAcAAIAAAAAAAAAAAAdAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAGAAMAAAACAAAAAAAHAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAKAAMAAAAAAAAAAAALAAMAAAAAAAAAAAAMAAMAAAAAAAAAAAANAAMAAAACAAAAAAAOAAMAAAABAAAAAAAPAAMAAAAAAAAAAAAQAAMAAAAAAAAAAAARAAMAAAABAAAAAAASAAMAAAAAAAAAAAATAAMAAAAAAAAAAAAUAAMAAAAAAAAAAAAVAAMAAAAAAAAAAAAWAAMAAAAAAAAAAAAXAAMAAAAAAAAAAAAYAAMAAAAAAAAAAAAZAAMAAAAAAAAAAAAaAAMAAAAAAAAAAAAbAAMAAAAAAAAAAAAcAAMAAAAAAAAAAAAdAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAJAAQAAAACAAAAAAAKAAQAAAACAAAAAAALAAQAAAABAAAAAAAMAAQAAAACAAAAAAANAAQAAAAAAAAAAAAOAAQAAAAAAAAAAAAPAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAARAAQAAAAAAAAAAAASAAQAAAAAAAAAAAATAAQAAAAAAAAAAAAUAAQAAAAAAAAAAAAVAAQAAAAAAAAAAAAWAAQAAAAAAAAAAAAXAAQAAAAAAAAAAAAYAAQAAAAAAAAAAAAZAAQAAAAAAAAAAAAaAAQAAAAAAAAAAAAbAAQAAAACAAAAAAAcAAQAAAAAAAAAAAAdAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAACAAAAAAACAAUAAAAAAAAAAAADAAUAAAABAAAAAAAEAAUAAAAAAAAAAAAFAAUAAAAHAAMAAAAGAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAKAAUAAAABAAAAAAALAAUAAAAAAAAAAAAMAAUAAAAAAAAAAAANAAUAAAAAAAAAAAAOAAUAAAAAAAAAAAAPAAUAAAAAAAAAAAAQAAUAAAAAAAAAAAARAAUAAAAAAAAAAAASAAUAAAAAAAAAAAATAAUAAAAAAAAAAAAUAAUAAAABAAAAAAAVAAUAAAACAAAAAAAWAAUAAAABAAAAAAAXAAUAAAAHAAMAAAAYAAUAAAAAAAAAAAAZAAUAAAABAAAAAAAaAAUAAAAAAAAAAAAbAAUAAAAAAAAAAAAcAAUAAAAAAAAAAAAdAAUAAAAAAAAAAAAAAAYAAAABAAAAAAABAAYAAAABAAAAAAACAAYAAAACAAAAAAADAAYAAAAAAAAAAAAEAAYAAAAAAAAAAAAFAAYAAAAHAAMAAAAGAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAAMAAYAAAAAAAAAAAANAAYAAAAAAAAAAAAOAAYAAAAAAAAAAAAPAAYAAAACAAAAAAAQAAYAAAAAAAAAAAARAAYAAAAAAAAAAAASAAYAAAAAAAAAAAATAAYAAAABAAAAAAAUAAYAAAAAAAAAAAAVAAYAAAAAAAAAAAAWAAYAAAAAAAAAAAAXAAYAAAAHAAMAAAAYAAYAAAAAAAAAAAAZAAYAAAAAAAAAAAAaAAYAAAAAAAAAAAAbAAYAAAAAAAAAAAAcAAYAAAABAAAAAAAdAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAABAAcAAAAAAAAAAAACAAcAAAAAAAAAAAADAAcAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAcAAAAHAAMAAAAGAAcAAAACAAAAAAAHAAcAAAAAAAAAAAAIAAcAAAAAAAAAAAAJAAcAAAABAAAAAAAKAAcAAAAAAAAAAAALAAcAAAABAAAAAAAMAAcAAAAAAAAAAAANAAcAAAAAAAAAAAAOAAcAAAAAAAAAAAAPAAcAAAAAAAAAAAAQAAcAAAAAAAAAAAARAAcAAAAAAAAAAAASAAcAAAAAAAAAAAATAAcAAAABAAAAAAAUAAcAAAAAAAAAAAAVAAcAAAAAAAAAAAAWAAcAAAAAAAAAAAAXAAcAAAAHAAMAAAAYAAcAAAAAAAAAAAAZAAcAAAAAAAAAAAAaAAcAAAACAAAAAAAbAAcAAAAAAAAAAAAcAAcAAAAAAAAAAAAdAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAABAAgAAAABAAAAAAACAAgAAAACAAAAAAADAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAFAAgAAAAHAAMAAAAGAAgAAAAHAAMAAAAHAAgAAAAHAAMAAAAIAAgAAAAHAAMAAAAJAAgAAAAHAAMAAAAKAAgAAAAHAAMAAAALAAgAAAAHAAMAAAAMAAgAAAAHAAMAAAANAAgAAAAHAAMAAAAOAAgAAAAHAAMAAAAPAAgAAAAHAAMAAAAQAAgAAAAHAAMAAAARAAgAAAAHAAMAAAASAAgAAAAHAAMAAAATAAgAAAAHAAMAAAAUAAgAAAAHAAMAAAAVAAgAAAAHAAMAAAAWAAgAAAAHAAMAAAAXAAgAAAAHAAMAAAAYAAgAAAABAAAAAAAZAAgAAAAAAAAAAAAaAAgAAAAAAAAAAAAbAAgAAAAAAAAAAAAcAAgAAAAAAAAAAAAdAAgAAAABAAAAAAAAAAkAAAAAAAAAAAABAAkAAAAAAAAAAAACAAkAAAABAAAAAAADAAkAAAAAAAAAAAAEAAkAAAAAAAAAAAAFAAkAAAAHAAMAAAAGAAkAAAAAAAAAAAAHAAkAAAAAAAAAAAAIAAkAAAAAAAAAAAAJAAkAAAABAAAAAAAKAAkAAAAAAAAAAAALAAkAAAAAAAAAAAAMAAkAAAAAAAAAAAANAAkAAAAAAAAAAAAOAAkAAAAAAAAAAAAPAAkAAAAAAAAAAAAQAAkAAAAAAAAAAAARAAkAAAAAAAAAAAASAAkAAAAAAAAAAAATAAkAAAACAAAAAAAUAAkAAAAAAAAAAAAVAAkAAAAAAAAAAAAWAAkAAAAAAAAAAAAXAAkAAAAAAAAAAAAYAAkAAAACAAAAAAAZAAkAAAAAAAAAAAAaAAkAAAAAAAAAAAAbAAkAAAAAAAAAAAAcAAkAAAAAAAAAAAAdAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAABAAoAAAAAAAAAAAACAAoAAAAAAAAAAAADAAoAAAAAAAAAAAAEAAoAAAAAAAAAAAAFAAoAAAAHAAMAAAAGAAoAAAAAAAAAAAAHAAoAAAAAAAAAAAAIAAoAAAAAAAAAAAAJAAoAAAAAAAAAAAAKAAoAAAAAAAAAAAALAAoAAAAAAAAAAAAMAAoAAAAAAAAAAAANAAoAAAACAAAAAAAOAAoAAAAAAAAAAAAPAAoAAAAAAAAAAAAQAAoAAAABAAAAAAARAAoAAAAAAAAAAAASAAoAAAABAAAAAAATAAoAAAAAAAAAAAAUAAoAAAAAAAAAAAAVAAoAAAAAAAAAAAAWAAoAAAAAAAAAAAAXAAoAAAAAAAAAAAAYAAoAAAAAAAAAAAAZAAoAAAAAAAAAAAAaAAoAAAAAAAAAAAAbAAoAAAAAAAAAAAAcAAoAAAAAAAAAAAAdAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAABAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAHAAMAAAAGAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAIAAsAAAAAAAAAAAAJAAsAAAAAAAAAAAAKAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAABAAAAAAAOAAsAAAABAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAAUAAsAAAAAAAAAAAAVAAsAAAAAAAAAAAAWAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAAYAAsAAAAAAAAAAAAZAAsAAAAAAAAAAAAaAAsAAAAAAAAAAAAbAAsAAAAAAAAAAAAcAAsAAAAAAAAAAAAdAAsAAAAAAAAAAAAAAAwAAAAAAAAAAAABAAwAAAABAAAAAAACAAwAAAAAAAAAAAADAAwAAAABAAAAAAAEAAwAAAAAAAAAAAAFAAwAAAAHAAMAAAAGAAwAAAABAAAAAAAHAAwAAAAAAAAAAAAIAAwAAAAAAAAAAAAJAAwAAAAAAAAAAAAKAAwAAAABAAAAAAALAAwAAAAAAAAAAAAMAAwAAAAAAAAAAAANAAwAAAABAAAAAAAOAAwAAAAAAAAAAAAPAAwAAAAAAAAAAAAQAAwAAAAAAAAAAAARAAwAAAAAAAAAAAASAAwAAAAAAAAAAAATAAwAAAAAAAAAAAAUAAwAAAAAAAAAAAAVAAwAAAAAAAAAAAAWAAwAAAABAAAAAAAXAAwAAAAAAAAAAAAYAAwAAAAAAAAAAAAZAAwAAAAAAAAAAAAaAAwAAAABAAAAAAAbAAwAAAAAAAAAAAAcAAwAAAAAAAAAAAAdAAwAAAACAAAAAAAAAA0AAAAAAAAAAAABAA0AAAAAAAAAAAACAA0AAAAAAAAAAAADAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAAFAA0AAAAAAAAAAAAGAA0AAAAAAAAAAAAHAA0AAAAAAAAAAAAIAA0AAAAAAAAAAAAJAA0AAAAAAAAAAAAKAA0AAAAAAAAAAAALAA0AAAAAAAAAAAAMAA0AAAAAAAAAAAANAA0AAAAAAAAAAAAOAA0AAAAAAAAAAAAPAA0AAAAAAAAAAAAQAA0AAAACAAAAAAARAA0AAAAAAAAAAAASAA0AAAAAAAAAAAATAA0AAAAAAAAAAAAUAA0AAAAAAAAAAAAVAA0AAAAAAAAAAAAWAA0AAAAAAAAAAAAXAA0AAAAAAAAAAAAYAA0AAAAAAAAAAAAZAA0AAAABAAAAAAAaAA0AAAAAAAAAAAAbAA0AAAAAAAAAAAAcAA0AAAAAAAAAAAAdAA0AAAAAAAAAAAAAAA4AAAAAAAAAAAABAA4AAAAAAAAAAAACAA4AAAACAAAAAAADAA4AAAABAAAAAAAEAA4AAAAAAAAAAAAFAA4AAAAAAAAAAAAGAA4AAAAAAAAAAAAHAA4AAAAAAAAAAAAIAA4AAAAAAAAAAAAJAA4AAAAAAAAAAAAKAA4AAAAAAAAAAAALAA4AAAAAAAAAAAAMAA4AAAACAAAAAAANAA4AAAAAAAAAAAAOAA4AAAAAAAAAAAAPAA4AAAABAAAAAAAQAA4AAAAAAAAAAAARAA4AAAACAAAAAAASAA4AAAABAAAAAAATAA4AAAAAAAAAAAAUAA4AAAAAAAAAAAAVAA4AAAAAAAAAAAAWAA4AAAAAAAAAAAAXAA4AAAAAAAAAAAAYAA4AAAAAAAAAAAAZAA4AAAAAAAAAAAAaAA4AAAAAAAAAAAAbAA4AAAAAAAAAAAAcAA4AAAAAAAAAAAAdAA4AAAAAAAAAAAAAAA8AAAAAAAAAAAABAA8AAAAAAAAAAAACAA8AAAABAAAAAAADAA8AAAAAAAAAAAAEAA8AAAAAAAAAAAAFAA8AAAACAAAAAAAGAA8AAAAAAAAAAAAHAA8AAAAAAAAAAAAIAA8AAAAAAAAAAAAJAA8AAAAAAAAAAAAKAA8AAAABAAAAAAALAA8AAAAAAAAAAAAMAA8AAAAAAAAAAAANAA8AAAAAAAAAAAAOAA8AAAAAAAAAAAAPAA8AAAAAAAAAAAAQAA8AAAAAAAAAAAARAA8AAAAAAAAAAAASAA8AAAAAAAAAAAATAA8AAAAAAAAAAAAUAA8AAAAAAAAAAAAVAA8AAAAAAAAAAAAWAA8AAAAAAAAAAAAXAA8AAAAAAAAAAAAYAA8AAAAAAAAAAAAZAA8AAAAAAAAAAAAaAA8AAAAAAAAAAAAbAA8AAAAAAAAAAAAcAA8AAAAAAAAAAAAdAA8AAAAAAAAAAAAAABAAAAAAAAAAAAABABAAAAABAAAAAAACABAAAAAAAAAAAAADABAAAAAAAAAAAAAEABAAAAAAAAAAAAAFABAAAAAAAAAAAAAGABAAAAAAAAAAAAAHABAAAAAAAAAAAAAIABAAAAAAAAAAAAAJABAAAAAAAAAAAAAKABAAAAAAAAAAAAALABAAAAAAAAAAAAAMABAAAAAAAAAAAAANABAAAAAAAAAAAAAOABAAAAAAAAAAAAAPABAAAAAAAAAAAAAQABAAAAAAAAAAAAARABAAAAAAAAAAAAASABAAAAAAAAAAAAATABAAAAAAAAAAAAAUABAAAAAAAAAAAAAVABAAAAAAAAAAAAAWABAAAAAAAAAAAAAXABAAAAAAAAAAAAAYABAAAAAAAAAAAAAZABAAAAAAAAAAAAAaABAAAAAAAAAAAAAbABAAAAAAAAAAAAAcABAAAAAAAAAAAAAdABAAAAAAAAAAAAA=")
+tile_set = ExtResource("2_iqnor")
+
+[node name="Buildings" type="TileMapLayer" parent="." unique_id=1495056597]
+tile_map_data = PackedByteArray("AAADAAIAAAAEAAQAAAAEAAIAAAAFAAQAAAAFAAIAAAAFAAQAAAAGAAIAAAAGAAQAAAADAAMAAAAEAAUAAAAEAAMAAAAFAAUAAAAFAAMAAAAHAAUAAAAGAAMAAAAGAAUAAAADAAQAAAAAAAYAAAAEAAQAAAAAAAcAAAAFAAQAAAABAAcAAAAGAAQAAAADAAYAAAAWAAIAAAAAAAQAAAAXAAIAAAABAAQAAAAYAAIAAAACAAQAAAAWAAMAAAAAAAUAAAAXAAMAAAADAAUAAAAYAAMAAAACAAUAAAAWAAQAAAAAAAYAAAAXAAQAAAABAAcAAAAYAAQAAAADAAYAAAAAAAAAAAAEAAEAAAAAABAAAAAEAAIAAAABAAAAAAAEAAIAAAABABAAAAAEAAEAAAACAAAAAAAFAAAAAAACABAAAAAEAAAAAAADAAAAAAAEAAIAAAADABAAAAADAAEAAAAEAAAAAAAEAAEAAAAEABAAAAAEAAIAAAAFAAAAAAAEAAAAAAAFABAAAAAEAAEAAAAGAAAAAAADAAEAAAAGABAAAAAEAAIAAAAHAAAAAAAEAAIAAAAHABAAAAAFAAAAAAAIAAAAAAAEAAEAAAAIABAAAAAEAAIAAAAJAAAAAAAEAAIAAAAJABAAAAAEAAEAAAAKAAAAAAAFAAAAAAAKABAAAAAEAAAAAAALAAAAAAAEAAIAAAALABAAAAADAAEAAAAMAAAAAAAEAAEAAAAMABAAAAAEAAIAAAANAAAAAAAEAAAAAAANABAAAAAEAAEAAAAOAAAAAAADAAEAAAAOABAAAAAEAAIAAAAPAAAAAAAEAAIAAAAPABAAAAAFAAAAAAAQAAAAAAAEAAEAAAAQABAAAAAEAAIAAAARAAAAAAAEAAIAAAARABAAAAAEAAEAAAASAAAAAAAFAAAAAAASABAAAAAEAAAAAAATAAAAAAAEAAIAAAATABAAAAADAAEAAAAUAAAAAAAEAAEAAAAUABAAAAAEAAIAAAAVAAAAAAAEAAAAAAAVABAAAAAEAAEAAAAWAAAAAAADAAEAAAAWABAAAAAEAAIAAAAXAAAAAAAEAAIAAAAXABAAAAAFAAAAAAAYAAAAAAAEAAEAAAAYABAAAAAEAAIAAAAZAAAAAAAEAAIAAAAZABAAAAAEAAEAAAAaAAAAAAAFAAAAAAAaABAAAAAEAAAAAAAbAAAAAAAEAAIAAAAbABAAAAADAAEAAAAcAAAAAAAEAAEAAAAcABAAAAAEAAIAAAAdAAAAAAAEAAAAAAAdABAAAAAEAAEAAAAAAAEAAAADAAEAAAAdAAEAAAAEAAIAAAAAAAIAAAAEAAIAAAAdAAIAAAAEAAEAAAAAAAMAAAAEAAEAAAAdAAMAAAAEAAAAAAAAAAQAAAAEAAIAAAAdAAQAAAADAAEAAAAAAAUAAAAFAAAAAAAdAAUAAAAEAAIAAAAAAAYAAAAEAAIAAAAdAAYAAAAEAAEAAAAAAAcAAAAEAAEAAAAdAAcAAAAEAAIAAAAAAAgAAAAEAAAAAAAdAAgAAAAFAAAAAAAAAAkAAAADAAEAAAAdAAkAAAAEAAIAAAAAAAoAAAAEAAIAAAAdAAoAAAAEAAEAAAAAAAsAAAAEAAEAAAAdAAsAAAAEAAAAAAAAAAwAAAAEAAIAAAAdAAwAAAADAAEAAAAAAA0AAAAFAAAAAAAdAA0AAAAEAAIAAAAAAA4AAAAEAAIAAAAdAA4AAAAEAAEAAAAAAA8AAAAEAAEAAAAdAA8AAAAEAAIAAAABAAEAAAAFAAAAAAACAAEAAAAEAAIAAAABAAIAAAAEAAIAAAAMAAEAAAAEAAAAAAARAAEAAAAFAAAAAAAbAAEAAAAEAAEAAAAcAAEAAAAEAAAAAAAcAAIAAAADAAEAAAABAA4AAAAEAAIAAAABAA8AAAAEAAEAAAACAA8AAAAEAAIAAAAKAA8AAAAEAAIAAAAQAA8AAAAEAAIAAAAYAAsAAAAEAAIAAAAaAAoAAAAEAAEAAAAcAAsAAAAEAAIAAAAXAA0AAAAFAAAAAAAcAA0AAAAEAAIAAAAYAA8AAAAEAAIAAAAaAA8AAAAEAAAAAAAbAA4AAAAEAAIAAAAZAAwAAAAEAAIAAAAWAA8AAAAEAAIAAAAcAA8AAAAEAAIAAAAbAAwAAAAEAAAAAAAIAAMAAAAKAAcAAAAJAAMAAAAKAAcAAAAIAAQAAAAIAAMAAAAJAAQAAAAJAAMAAAAKAAQAAAAKAAMAAAAUAAQAAAAKAAgAAAAZAAQAAAAKAAoAAAA=")
+tile_set = ExtResource("2_iqnor")
+
+[node name="Dusk" type="CanvasModulate" parent="." unique_id=1501737811]
+color = Color(0.45, 0.44, 0.66, 1)
+
+[node name="HouseWindow" type="PointLight2D" parent="." unique_id=970541947]
+position = Vector2(72, 72)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.8
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.35
+
+[node name="Objects" type="Node2D" parent="." unique_id=1399237280]
+y_sort_enabled = true
+
+[node name="house" type="Node2D" parent="Objects" unique_id=1676976545 groups=["places"]]
+position = Vector2(88, 88)
+script = ExtResource("3_markx")
+description = "Your friend's little house, with a red roof."
+
+[node name="shed" type="Node2D" parent="Objects" unique_id=694858237 groups=["places"]]
+position = Vector2(376, 88)
+script = ExtResource("3_markx")
+description = "An old shed, with a gray roof."
+
+[node name="woods" type="Node2D" parent="Objects" unique_id=778749005 groups=["places"]]
+position = Vector2(392, 200)
+script = ExtResource("3_markx")
+description = "The woods, at the edge of the village."
+
+[node name="well" type="StaticBody2D" parent="Objects" unique_id=265386626 groups=["places"]]
+position = Vector2(232, 104)
+script = ExtResource("3_markx")
+description = "The village well, in the middle of the village."
+
+[node name="Sprite" type="Sprite2D" parent="Objects/well" unique_id=521581590]
+texture = ExtResource("4_5r634")
+hframes = 12
+vframes = 11
+frame = 104
+
+[node name="Collision" type="CollisionShape2D" parent="Objects/well" unique_id=1048519134]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_1c7wd")
+
+[node name="old chest" type="StaticBody2D" parent="Objects" unique_id=1660518265 node_paths=PackedStringArray("treasure") groups=["places"]]
+position = Vector2(88, 216)
+script = ExtResource("5_jwmop")
+key = "iron key"
+treasure = NodePath("../gold key")
+description = "An old chest. It's locked."
+
+[node name="Sprite" type="Sprite2D" parent="Objects/old chest" unique_id=1754058662]
+texture = ExtResource("6_2ol3x")
+hframes = 12
+vframes = 11
+frame = 89
+
+[node name="Collision" type="CollisionShape2D" parent="Objects/old chest" unique_id=629883713]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_l8i38")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="Objects/old chest" unique_id=113237537]
+stream = ExtResource("7_m6886")
+volume_db = -7.0
+
+[node name="big chest" type="StaticBody2D" parent="Objects" unique_id=1757064085 node_paths=PackedStringArray("treasure") groups=["places"]]
+position = Vector2(296, 216)
+script = ExtResource("5_jwmop")
+key = "gold key"
+treasure = NodePath("../sword")
+description = "A big chest. It's locked."
+
+[node name="Sprite" type="Sprite2D" parent="Objects/big chest" unique_id=1502616063]
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("6_2ol3x")
+hframes = 12
+vframes = 11
+frame = 89
+
+[node name="Collision" type="CollisionShape2D" parent="Objects/big chest" unique_id=846569881]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_k2lb2")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="Objects/big chest" unique_id=1284685311]
+stream = ExtResource("7_m6886")
+volume_db = -7.0
+
+[node name="iron key" type="Sprite2D" parent="Objects" unique_id=1501512642 groups=["items"]]
+position = Vector2(344, 88)
+texture = ExtResource("4_5r634")
+hframes = 12
+vframes = 11
+frame = 117
+script = ExtResource("3_markx")
+description = "An old iron key, on the ground."
+
+[node name="bucket" type="Sprite2D" parent="Objects" unique_id=324264163 groups=["items"]]
+position = Vector2(252, 108)
+texture = ExtResource("4_5r634")
+hframes = 12
+vframes = 11
+frame = 131
+script = ExtResource("3_markx")
+description = "A bucket of water, by the well."
+
+[node name="mushroom" type="Sprite2D" parent="Objects" unique_id=1415197113 groups=["items"]]
+position = Vector2(184, 232)
+texture = ExtResource("4_5r634")
+hframes = 12
+vframes = 11
+frame = 29
+script = ExtResource("3_markx")
+description = "A red mushroom, under a tree, at the south of the village."
+
+[node name="gold key" type="Sprite2D" parent="Objects" unique_id=313126096 groups=["items"]]
+visible = false
+modulate = Color(1, 0.82, 0.3, 1)
+position = Vector2(104, 216)
+texture = ExtResource("4_5r634")
+hframes = 12
+vframes = 11
+frame = 117
+script = ExtResource("3_markx")
+description = "A shiny gold key, which was in the old chest."
+
+[node name="sword" type="Sprite2D" parent="Objects" unique_id=1989128825 groups=["items"]]
+visible = false
+position = Vector2(280, 216)
+texture = ExtResource("6_2ol3x")
+hframes = 12
+vframes = 11
+frame = 104
+script = ExtResource("3_markx")
+description = "A sword, which was in the big chest. With it, your friend can fight ghosts too."
+
+[node name="Lamp" type="StaticBody2D" parent="Objects" unique_id=2123917322 groups=["lamps"]]
+position = Vector2(104, 104)
+script = ExtResource("8_c843x")
+
+[node name="Sprite" type="Sprite2D" parent="Objects/Lamp" unique_id=1847159634]
+texture = ExtResource("9_vfyxc")
+hframes = 2
+
+[node name="Light" type="PointLight2D" parent="Objects/Lamp" unique_id=1641789563]
+position = Vector2(0, -3)
+color = Color(1, 0.72, 0.4, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.8
+
+[node name="Collision" type="CollisionShape2D" parent="Objects/Lamp" unique_id=871127157]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_bpatm")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="Objects/Lamp" unique_id=540477340]
+stream = ExtResource("10_r2juj")
+volume_db = -9.0
+
+[node name="@StaticBody2D@5" type="StaticBody2D" parent="Objects" unique_id=1924186120 groups=["lamps"]]
+position = Vector2(184, 152)
+script = ExtResource("8_c843x")
+
+[node name="Sprite" type="Sprite2D" parent="Objects/@StaticBody2D@5" unique_id=1252577335]
+texture = ExtResource("9_vfyxc")
+hframes = 2
+
+[node name="Light" type="PointLight2D" parent="Objects/@StaticBody2D@5" unique_id=895207668]
+position = Vector2(0, -3)
+color = Color(1, 0.72, 0.4, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.8
+
+[node name="Collision" type="CollisionShape2D" parent="Objects/@StaticBody2D@5" unique_id=1774027331]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_epm5x")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="Objects/@StaticBody2D@5" unique_id=796029939]
+stream = ExtResource("10_r2juj")
+volume_db = -9.0
+
+[node name="@StaticBody2D@6" type="StaticBody2D" parent="Objects" unique_id=1818764920 groups=["lamps"]]
+position = Vector2(280, 120)
+script = ExtResource("8_c843x")
+
+[node name="Sprite" type="Sprite2D" parent="Objects/@StaticBody2D@6" unique_id=1244044597]
+texture = ExtResource("9_vfyxc")
+hframes = 2
+
+[node name="Light" type="PointLight2D" parent="Objects/@StaticBody2D@6" unique_id=1965223207]
+position = Vector2(0, -3)
+color = Color(1, 0.72, 0.4, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.8
+
+[node name="Collision" type="CollisionShape2D" parent="Objects/@StaticBody2D@6" unique_id=340020742]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_ohodd")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="Objects/@StaticBody2D@6" unique_id=974753060]
+stream = ExtResource("10_r2juj")
+volume_db = -9.0
+
+[node name="@StaticBody2D@7" type="StaticBody2D" parent="Objects" unique_id=456157540 groups=["lamps"]]
+position = Vector2(360, 152)
+script = ExtResource("8_c843x")
+
+[node name="Sprite" type="Sprite2D" parent="Objects/@StaticBody2D@7" unique_id=1494913117]
+texture = ExtResource("9_vfyxc")
+hframes = 2
+
+[node name="Light" type="PointLight2D" parent="Objects/@StaticBody2D@7" unique_id=632225330]
+position = Vector2(0, -3)
+color = Color(1, 0.72, 0.4, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.8
+
+[node name="Collision" type="CollisionShape2D" parent="Objects/@StaticBody2D@7" unique_id=1269451080]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_4e8gl")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="Objects/@StaticBody2D@7" unique_id=1618850573]
+stream = ExtResource("10_r2juj")
+volume_db = -9.0
+
+[node name="Player" type="CharacterBody2D" parent="Objects" unique_id=1785904959 node_paths=PackedStringArray("inventory", "hearts_display")]
+position = Vector2(104, 168)
+motion_mode = 1
+script = ExtResource("11_r21ja")
+inventory = NodePath("../../UI/Inventory")
+hearts_display = NodePath("../../UI/Hearts")
+
+[node name="Sprite" type="Sprite2D" parent="Objects/Player" unique_id=2147189536]
+texture = ExtResource("6_2ol3x")
+hframes = 12
+vframes = 11
+frame = 85
+
+[node name="Collision" type="CollisionShape2D" parent="Objects/Player" unique_id=2111171599]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_kmeb6")
+
+[node name="Light" type="PointLight2D" parent="Objects/Player" unique_id=1224211204]
+color = Color(1, 0.45, 0.35, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.35
+
+[node name="Sword" type="Sprite2D" parent="Objects/Player" unique_id=1365615895]
+visible = false
+position = Vector2(0, 3)
+texture = ExtResource("6_2ol3x")
+offset = Vector2(4, -6)
+hframes = 12
+vframes = 11
+frame = 104
+
+[node name="SwingSound" type="AudioStreamPlayer2D" parent="Objects/Player" unique_id=822197005]
+stream = ExtResource("12_mx37h")
+volume_db = -9.0
+
+[node name="ScaredSound" type="AudioStreamPlayer2D" parent="Objects/Player" unique_id=1241657304]
+stream = ExtResource("13_kpq2u")
+volume_db = -7.0
+
+[node name="Cat" type="Node2D" parent="Objects" unique_id=254696654]
+position = Vector2(124, 170)
+script = ExtResource("14_c7g21")
+
+[node name="Sprite" type="Sprite2D" parent="Objects/Cat" unique_id=1822936005]
+texture = ExtResource("15_rfbtf")
+
+[node name="Light" type="PointLight2D" parent="Objects/Cat" unique_id=964304135]
+color = Color(0.8, 0.75, 1, 1)
+energy = 0.7
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.6
+
+[node name="ThrowSound" type="AudioStreamPlayer2D" parent="Objects/Cat" unique_id=799149481]
+stream = ExtResource("16_ppafc")
+volume_db = -11.0
+
+[node name="Sounds" type="Node" parent="." unique_id=1895860497]
+
+[node name="Key" type="AudioStreamPlayer" parent="Sounds" unique_id=926530087]
+stream = ExtResource("17_g57b6")
+volume_db = -10.0
+
+[node name="PickUp" type="AudioStreamPlayer" parent="Sounds" unique_id=33919935]
+stream = ExtResource("18_t6vi1")
+volume_db = -9.0
+
+[node name="Ghosts" type="AudioStreamPlayer" parent="Sounds" unique_id=68592302]
+stream = ExtResource("19_5leeh")
+volume_db = -8.0
+
+[node name="PipecatClient" type="PipecatClient" parent="." unique_id=992495372]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1255407639]
+
+[node name="Logo" type="TextureRect" parent="UI" unique_id=52041459]
+modulate = Color(1, 1, 1, 0.7)
+texture_filter = 2
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 86.0
+offset_bottom = 21.5
+texture = ExtResource("20_0r6tc")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Status" type="Label" parent="UI" unique_id=446712621]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 92.0
+offset_top = 4.0
+offset_right = -52.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.06, 0.1, 1)
+theme_override_constants/outline_size = 3
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Subtitles" type="VBoxContainer" parent="UI" unique_id=219793580]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -70.0
+offset_right = -24.0
+offset_bottom = -6.0
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="User" type="Label" parent="UI/Subtitles" unique_id=1133193556]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(1, 0.85, 0.6, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.06, 0.1, 1)
+theme_override_constants/outline_size = 3
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Cat" type="Label" parent="UI/Subtitles" unique_id=1748070009]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.88, 0.8, 1, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.06, 0.1, 1)
+theme_override_constants/outline_size = 3
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Inventory" type="Node2D" parent="UI" unique_id=1859188785]
+position = Vector2(0, 20)
+
+[node name="Hearts" type="Node2D" parent="UI" unique_id=527786534]
+position = Vector2(442, 10)
+
+[node name="Heart1" type="Sprite2D" parent="UI/Hearts" unique_id=1316897586]
+texture = ExtResource("21_nfar0")
+hframes = 3
+
+[node name="Heart2" type="Sprite2D" parent="UI/Hearts" unique_id=1169581720]
+position = Vector2(10, 0)
+texture = ExtResource("21_nfar0")
+hframes = 3
+
+[node name="Heart3" type="Sprite2D" parent="UI/Hearts" unique_id=1599211142]
+position = Vector2(20, 0)
+texture = ExtResource("21_nfar0")
+hframes = 3

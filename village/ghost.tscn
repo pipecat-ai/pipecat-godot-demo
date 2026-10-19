@@ -1,0 +1,55 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://village/ghost.gd" id="1_83him"]
+[ext_resource type="Texture2D" path="res://assets/kenney/tiny-dungeon.png" id="2_ivnlu"]
+[ext_resource type="AudioStream" path="res://assets/sounds/poof.wav" id="3_a1eku"]
+
+[sub_resource type="Gradient" id="Gradient_ww280"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hs13j"]
+gradient = SubResource("Gradient_ww280")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_ka0a2"]
+colors = PackedColorArray(0.95, 0.97, 1, 0.8, 0.7, 0.75, 0.9, 0)
+
+[node name="Ghost" type="Node2D" unique_id=1279853826 groups=["ghosts"]]
+z_index = 5
+script = ExtResource("1_83him")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=892736718]
+texture = ExtResource("2_ivnlu")
+hframes = 12
+vframes = 11
+frame = 121
+
+[node name="Light" type="PointLight2D" parent="." unique_id=564948925]
+color = Color(0.7, 0.85, 1, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.3
+
+[node name="Poof" type="CPUParticles2D" parent="." unique_id=314891681]
+emitting = false
+amount = 24
+lifetime = 0.7
+one_shot = true
+explosiveness = 0.9
+spread = 180.0
+gravity = Vector2(0, -20)
+initial_velocity_min = 10.0
+initial_velocity_max = 35.0
+damping_min = 40.0
+damping_max = 80.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_ka0a2")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="." unique_id=1243531260]
+stream = ExtResource("3_a1eku")
+volume_db = -10.0

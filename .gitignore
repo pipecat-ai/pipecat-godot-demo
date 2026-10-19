@@ -1,0 +1,21 @@
+# Godot's cache.
+.godot/
+
+# The Pipecat GDExtension's build, and the libraries it builds.
+build/
+addons/pipecat/bin/
+
+# Editor project files.
+.vscode/
+.idea/
+
+# The bot's virtual environment and secrets.
+pipecat/.venv/
+pipecat/.env
+pipecat/.envrc
+pipecat/__pycache__/
+pipecat/.ruff_cache/
+
+# Godot's import settings for the images only the README uses.
+pipecat.png.import
+pipecat-godot-demo.png.import

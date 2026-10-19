@@ -1,0 +1,11 @@
+[configuration]
+
+entry_symbol = "pipecat_library_init"
+compatibility_minimum = "4.7"
+
+[libraries]
+
+linux.debug.x86_64 = "res://addons/pipecat/bin/libpipecat.linux.template_debug.x86_64.so"
+linux.release.x86_64 = "res://addons/pipecat/bin/libpipecat.linux.template_release.x86_64.so"
+linux.debug.arm64 = "res://addons/pipecat/bin/libpipecat.linux.template_debug.arm64.so"
+linux.release.arm64 = "res://addons/pipecat/bin/libpipecat.linux.template_release.arm64.so"

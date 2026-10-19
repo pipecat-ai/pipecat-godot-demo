@@ -1,0 +1,238 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://title/title.gd" id="1_4bwyn"]
+[ext_resource type="Texture2D" path="res://assets/title.webp" id="2_grl6k"]
+[ext_resource type="Texture2D" path="res://assets/kenney/tiny-dungeon.png" id="3_cvhyk"]
+[ext_resource type="Texture2D" path="res://assets/cat.png" id="4_vxeqy"]
+[ext_resource type="Texture2D" path="res://assets/pipecat-logo.png" id="5_3l5ow"]
+[ext_resource type="Texture2D" path="res://assets/fireball.png" id="6_bqme7"]
+[ext_resource type="AudioStream" path="res://assets/sounds/pickup.wav" id="7_y1ss2"]
+[ext_resource type="AudioStream" path="res://assets/sounds/lamp.wav" id="8_5bniv"]
+
+[sub_resource type="Gradient" id="Gradient_djh1r"]
+offsets = PackedFloat32Array(0, 0.6)
+colors = PackedColorArray(0.02, 0.01, 0.05, 0.75, 0.02, 0.01, 0.05, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lqna4"]
+gradient = SubResource("Gradient_djh1r")
+width = 256
+height = 4
+
+[sub_resource type="Gradient" id="Gradient_ww280"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hs13j"]
+gradient = SubResource("Gradient_ww280")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhhqk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fyd4r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g7b4f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ibxtg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i01a6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_povds"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ahhml"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3jafg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eudk5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vwyar"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_afgga"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7wee"]
+
+[sub_resource type="Gradient" id="Gradient_ainli"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.97, 0.7, 1, 1, 0.65, 0.2, 0.95, 0.85, 0.25, 0.1, 0)
+
+[node name="Title" type="Control" unique_id=1261911485]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_4bwyn")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1206868284]
+texture_filter = 2
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("2_grl6k")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="TextureRect" parent="." unique_id=1653493923]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_lqna4")
+expand_mode = 1
+
+[node name="Ghosts" type="Node2D" parent="." unique_id=1008891480]
+
+[node name="Ghost" type="Sprite2D" parent="Ghosts" unique_id=748778550]
+modulate = Color(1, 1, 1, 0.85)
+position = Vector2(300, 80)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_cvhyk")
+hframes = 12
+vframes = 11
+frame = 121
+
+[node name="Light" type="PointLight2D" parent="Ghosts/Ghost" unique_id=1796294628]
+color = Color(0.7, 0.85, 1, 1)
+energy = 0.6
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.5
+
+[node name="Ghost2" type="Sprite2D" parent="Ghosts" unique_id=1597769804]
+modulate = Color(1, 1, 1, 0.85)
+position = Vector2(432, 112)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_cvhyk")
+hframes = 12
+vframes = 11
+frame = 108
+
+[node name="Light" type="PointLight2D" parent="Ghosts/Ghost2" unique_id=582115536]
+color = Color(0.7, 0.85, 1, 1)
+energy = 0.6
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.5
+
+[node name="Ghost3" type="Sprite2D" parent="Ghosts" unique_id=657998781]
+modulate = Color(1, 1, 1, 0.85)
+position = Vector2(398, 218)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_cvhyk")
+hframes = 12
+vframes = 11
+frame = 121
+
+[node name="Light" type="PointLight2D" parent="Ghosts/Ghost3" unique_id=1073032056]
+color = Color(0.7, 0.85, 1, 1)
+energy = 0.6
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.5
+
+[node name="Cat" type="Sprite2D" parent="." unique_id=1519335851]
+position = Vector2(360, 145)
+scale = Vector2(4, 4)
+texture = ExtResource("4_vxeqy")
+
+[node name="Light" type="PointLight2D" parent="Cat" unique_id=326853661]
+color = Color(0.8, 0.75, 1, 1)
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.35
+
+[node name="Logo" type="TextureRect" parent="." unique_id=933156443]
+modulate = Color(1, 1, 1, 0.7)
+texture_filter = 2
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 86.0
+offset_bottom = 21.5
+texture = ExtResource("5_3l5ow")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Menu" type="VBoxContainer" parent="." unique_id=1032736347]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 148.0
+offset_right = 206.0
+offset_bottom = 218.0
+theme_override_constants/separation = 2
+
+[node name="Play" type="Button" parent="Menu" unique_id=370610315]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yhhqk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fyd4r")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_g7b4f")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ibxtg")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_i01a6")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_povds")
+theme_override_colors/font_color = Color(0.72, 0.7, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.85, 0.45, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.85, 0.45, 1)
+theme_override_colors/font_hover_color = Color(1, 0.85, 0.45, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 5
+theme_override_colors/font_outline_color = Color(0.1, 0.06, 0.1, 1)
+text = "Play"
+alignment = 0
+
+[node name="Exit" type="Button" parent="Menu" unique_id=1698247195]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ahhml")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3jafg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_eudk5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vwyar")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_afgga")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c7wee")
+theme_override_colors/font_color = Color(0.72, 0.7, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.85, 0.45, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.85, 0.45, 1)
+theme_override_colors/font_hover_color = Color(1, 0.85, 0.45, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 5
+theme_override_colors/font_outline_color = Color(0.1, 0.06, 0.1, 1)
+text = "Exit Game"
+alignment = 0
+
+[node name="Marker" type="Node2D" parent="." unique_id=2145547059]
+position = Vector2(46, 160)
+
+[node name="Flames" type="CPUParticles2D" parent="Marker" unique_id=1486508792]
+amount = 24
+lifetime = 0.4
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 180.0
+gravity = Vector2(0, -30)
+initial_velocity_min = 4.0
+initial_velocity_max = 10.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_ainli")
+
+[node name="Sprite" type="Sprite2D" parent="Marker" unique_id=359311918]
+texture = ExtResource("6_bqme7")
+
+[node name="Light" type="PointLight2D" parent="Marker" unique_id=2132933157]
+color = Color(1, 0.6, 0.25, 1)
+energy = 1.2
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.5
+
+[node name="Fade" type="ColorRect" parent="." unique_id=328415869]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Select" type="AudioStreamPlayer" parent="." unique_id=1993536848]
+stream = ExtResource("7_y1ss2")
+volume_db = -9.0
+
+[node name="Start" type="AudioStreamPlayer" parent="." unique_id=229423018]
+stream = ExtResource("8_5bniv")
+volume_db = -6.0

@@ -1,0 +1,70 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://village/fireball.gd" id="1_vyvls"]
+[ext_resource type="Texture2D" path="res://assets/fireball.png" id="2_wg12g"]
+[ext_resource type="AudioStream" path="res://assets/sounds/burst.wav" id="3_getiv"]
+
+[sub_resource type="Gradient" id="Gradient_88pv7"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.97, 0.7, 1, 1, 0.65, 0.2, 0.95, 0.85, 0.25, 0.1, 0)
+
+[sub_resource type="Gradient" id="Gradient_ww280"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hs13j"]
+gradient = SubResource("Gradient_ww280")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_0j58o"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.97, 0.7, 1, 1, 0.65, 0.2, 0.95, 0.85, 0.25, 0.1, 0)
+
+[node name="Fireball" type="Node2D" unique_id=1620772035]
+z_index = 10
+script = ExtResource("1_vyvls")
+
+[node name="Trail" type="CPUParticles2D" parent="." unique_id=752804530]
+amount = 32
+lifetime = 0.35
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 180.0
+gravity = Vector2(0, -25)
+initial_velocity_min = 4.0
+initial_velocity_max = 12.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_88pv7")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=2063907854]
+texture = ExtResource("2_wg12g")
+
+[node name="Light" type="PointLight2D" parent="." unique_id=2142672272]
+color = Color(1, 0.6, 0.25, 1)
+energy = 1.2
+texture = SubResource("GradientTexture2D_hs13j")
+texture_scale = 0.6
+
+[node name="Burst" type="CPUParticles2D" parent="." unique_id=420255747]
+emitting = false
+amount = 40
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 90.0
+damping_min = 40.0
+damping_max = 80.0
+scale_amount_min = 1.5
+scale_amount_max = 3.5
+color_ramp = SubResource("Gradient_0j58o")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="." unique_id=395556479]
+stream = ExtResource("3_getiv")
+volume_db = -9.0
